@@ -12,6 +12,6 @@ my $url = "http://webkeno1.msla.state.md.us/kenosearch/kenosearch.aspx";
 
 my $user_agent = LWP::UserAgent->new();
 
-my $post_response = $user_agent->post($url, ['txGame'=>'00421370']);
+my $post_response = $user_agent->post($url, ['txGame'=>'00421370', 'btnGMGo'=>'GO','__VIEWSTATE'=>'dDw3Nzg3MDEwNDs7Ptfs4xYjCZmzRj4HNFuK3TLncOwL']);
 #print "".$post_response->content."\n";
 print Dumper($post_response);
