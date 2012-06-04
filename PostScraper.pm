@@ -26,7 +26,6 @@ sub _init {
 
 sub getPostResponseContent {
 	my $self = shift;
-	
 	unless (defined $self->{postResponseContent}) {
         print "Retrieving POST response for ".join(',',@{$self->{values}})."...\n";
         my $user_agent = LWP::UserAgent->new();
@@ -36,13 +35,27 @@ sub getPostResponseContent {
 	return $self->{postResponseContent};
 }
 
+sub getPostResultsTable {
+    my $self = shift;
+    unless (defined $self->{postResultsTable}) {
+        my $HtmlExtract = HTML::TableExtract->new(headers=>["DrawID","Draw Date", "Keno Numbers", "Bonus", "Super Bonus"]);
+        $HtmlExtract->parse($self->getPostResponseContent());
+        $self->{postResultsTable} = $HtmlExtract;
+    }
+    return $self->{postResultsTable};
+}
+
 sub postResultsTableCsv {
     my $self = shift;
-    my $HtmlExtract = HTML::TableExtract->new(headers=>["DrawID","Draw Date", "Keno Numbers", "Bonus", "Super Bonus"]);
-    $HtmlExtract->parse($self->getPostResponseContent());
-    foreach my $row ($HtmlExtract->rows) {
+    #my $HtmlExtract = HTML::TableExtract->new(headers=>["DrawID","Draw Date", "Keno Numbers", "Bonus", "Super Bonus"]);
+    #$HtmlExtract->parse($self->getPostResponseContent());
+    #foreach my $row ($HtmlExtract->rows) {
+    foreach my $row ($self->getPostResultsTable->rows) {
         print join(',', @$row), "\n";
     }
 }
 
+sub getHighestIDFromResultsTable {
+
+}
 1;

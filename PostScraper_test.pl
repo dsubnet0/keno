@@ -16,7 +16,10 @@ my $keno1 = PostScraper->new(
 
 #my $response = $keno1->getPostResponseContent();
 #print Dumper($response);
-#print Dumper($keno1->getPostResponseContent());
-$keno1->postResultsTableCsv();
+print Dumper($keno1->getPostResponseContent());
+##print Dumper({$keno1->getPostResultsTable}->rows);
+my $ResultsTable = $keno1->getPostResultsTable();
+#print Dumper($ResultsTable->rows);
+#$keno1->postResultsTableCsv();
 
 
