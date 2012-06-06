@@ -47,11 +47,10 @@ sub getPostResultsTable {
 
 sub postResultsTableCsv {
     my $self = shift;
-    #my $HtmlExtract = HTML::TableExtract->new(headers=>["DrawID","Draw Date", "Keno Numbers", "Bonus", "Super Bonus"]);
-    #$HtmlExtract->parse($self->getPostResponseContent());
-    #foreach my $row ($HtmlExtract->rows) {
+    my $output = shift;
+    die "Need an output" unless defined $output;
     foreach my $row ($self->getPostResultsTable->rows) {
-        print join(',', @$row), "\n";
+        print $output join(',', @$row), "\n";
     }
 }
 
