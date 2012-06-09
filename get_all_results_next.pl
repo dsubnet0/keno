@@ -9,7 +9,7 @@ $| = 1;
 
 my $url = "http://webkeno1.msla.state.md.us/kenosearch/kenosearch.aspx";
 
-my $game_number = "00421370";
+my $game_number = $ARGV[0] || "00421370";
 
 my $mechObject= WWW::Mechanize->new(autocheck => 1); 
 $mechObject->get($url);
