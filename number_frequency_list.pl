@@ -14,8 +14,5 @@ my $i = 0;
 foreach my $number (qw{01 02 03 04 05 06 07 08 09},10..80) {
     $sth->execute("\%$number\%");
     my $result_hashref = $sth->fetchrow_hashref();
-    #print Dumper($result_hashref);
-    #print "$number,".$result_hashref->{cnt}."\n";
-    print $result_hashref->{cnt};
-    if(++$i%10){print ",";}else{print "\n";}
+    print $result_hashref->{cnt}." ";
 }
