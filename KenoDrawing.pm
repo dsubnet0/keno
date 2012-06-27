@@ -3,7 +3,7 @@
 package KenoDrawing;
 
 use strict;
-use Data::Dumper;
+use DBI;
 
 my $current_id = 0;
 
@@ -22,6 +22,11 @@ sub _init {
 	$self->{id} = ++$current_id;
 }
 
+sub numbers {
+    my $self = shift;
+    return $self->{numbers};
+}
+
 sub drawNumbers {
 	my $number_of_balls = 20;
 	my %result_array = ();
@@ -36,13 +41,19 @@ sub drawNumbers {
 	return \@result_array;
 }
 
-sub printNumbers {
+sub printNumbersGrid {
 	my $self = shift;
-	for (my $i; $i<@{$self->{numbers}}; $i++) {
+	for (my $i; $i<@{$self->numbers}; $i++) {
 		unless ($i % 5) { print "\n"; }
-		print $self->{numbers}->[$i]." ";
+		print $self->numbers->[$i]." ";
 	}
 	print "\n\n";
+}
+
+sub saveToDatabase {
+    my $self = shift;
+    my $dbh = DBI->connect("dbi:mysql:host=192.168.1.107;database=keno","doug", "Checkmate1") or die "Can't connect to database: $!";
+    $dbh->do("INSERT INTO perl_keno (keno_numbers) VALUES ('@{$self->numbers}')");
 }
 
 1;

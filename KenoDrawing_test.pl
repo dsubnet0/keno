@@ -12,5 +12,7 @@ $games[1] = KenoDrawing->new();
 #print Dumper(\@games);
 foreach my $game (@games) {
 	print "Game #".$game->{id}.":\n";
-	$game->printNumbers();
+	$game->printNumbersGrid();
 }
+
+#$games[0]->saveToDatabase();
